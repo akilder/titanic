@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 
 def load_titanic(file_path='data/titanic_local.csv'):
-    # Check if file exists
     if os.path.exists(file_path):
         df = pd.read_csv(file_path)
         print("Loaded Titanic dataset from local CSV.")
@@ -17,19 +16,16 @@ def load_titanic(file_path='data/titanic_local.csv'):
 
 
 def evaluate_and_plot(y_true, y_pred, model_name):
-    # Calculate metrics
     report = classification_report(y_true, y_pred, output_dict=True)
     accuracy = accuracy_score(y_true, y_pred)
     recall1 = report['1']['recall']
     f1_1 = report['1']['f1-score']
 
-    # Print evaluation
     print(f"\n--- {model_name} ---")
     print("Accuracy:", round(accuracy, 2))
     print("Confusion Matrix:\n", confusion_matrix(y_true, y_pred))
     print("Classification Report:\n", classification_report(y_true, y_pred))
 
-    # Return metrics for plotting
     return [accuracy, recall1, f1_1]
 
 def plot_model_metrics(logreg_metrics, knn_metrics, metrics_names=['Accuracy', 'Class 1 Recall', 'Class 1 F1']):
